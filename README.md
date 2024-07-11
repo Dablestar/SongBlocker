@@ -1,8 +1,8 @@
-# P*nisSongBlocker - In Development
+# P*nisSongBlocker - In Development by Daburu
 
 ## (KR) 크롬 확장기능 - P*nis Song Blocker
 ### 1. 기획 의도:
-####   들으면 오글거리고 ㅈ같은 노래들을 쇼츠에서 스킵하기 위함
+####   듣기만 해도 오글거리고 짜증나는 노래들을 쇼츠에서 스킵하기 위함
 
 ### 2. 구조
 ####   Chrome Extensions를 통해 배포가 가능한 자바스크립트 기반 확장기능
@@ -18,7 +18,7 @@
 ####   3) 데이터베이스 구축 기능 구현
 
 ### 4. 예상되는 장점
-####   1) 좆같은 노래 안들어도 됨
+####   1) 끔찍한 노래들을 안들어도 됨
 ####   2) 정신건강에 좋음
 
 ### 5. 예상되는 단점
@@ -44,5 +44,5 @@
 
 ### 5. Cons
 #### 1) Expected to increase loading time
-#### 2) Should listen p*nis music at least one time
-#### 3) Cannot block original audio sources(source music which is uploaded by user. Not using a library)
+#### 2) Should listen p*nis song at least one time
+#### 3) Cannot block original audio sources(source music which is uploaded by user. Not using an official youtube library)
