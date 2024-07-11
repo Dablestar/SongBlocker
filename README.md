@@ -23,7 +23,7 @@
 
 ## (EN) Chrome Extension - P*nis Song Blocker
 ### 1. Reason of Development
-#### I hate some meme songs(Skibidi, Japanese Anime Song, etc..) keep appears in Youtube Shorts.
+#### I hate meme songs(Skibidi, Japanese Anime Song, etc..) keep appears in Youtube Shorts.
 
 ### 2. What is this?
 #### Javascript-based Chrome extension
