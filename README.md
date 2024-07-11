@@ -1,4 +1,4 @@
-# P*nisSongBlocker - In Development by Daburu
+# P*nisSongBlocker - In Development 
 
 ## (KR) 크롬 확장기능 - P*nis Song Blocker
 ### 1. 기획 의도:
@@ -46,3 +46,5 @@
 #### 1) Expected to increase loading time
 #### 2) Should listen p*nis song at least one time
 #### 3) Cannot block original audio sources(source music which is uploaded by user. Not using an official youtube library)
+
+## by Daburu
