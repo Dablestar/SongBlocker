@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "PenisSongBlocker",
+    "description": "Block Disgusting Songs",
+    "version": "1.0",
+    "action": {
+      "default_popup": "index.html",
+      "default_icon": "icon.png"
+    },
+    "permissions": ["activeTab", "scripting"],
+    "content_scripts": [{
+        "js": ["background.js"],
+        "matches": ["https://www.youtube.com/*"]
+    }]
+  }
