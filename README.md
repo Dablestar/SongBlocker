@@ -1,6 +1,6 @@
 # SongBlocker for Youtube Shorts - In Development 
 
-## (KR) 크롬 확장기능 - P*nis Song Blocker
+## (KR) 크롬 확장기능 - Song Blocker
 ### 1. 기획 의도:
 ####   듣기만 해도 오글거리고 짜증나는 노래들을 쇼츠에서 스킵하기 위함
 
@@ -21,7 +21,7 @@
 ####   2) 아무리 싫어도 한번은 들어야함
 ####   3) 오리지널 오디오로 집어넣은 우덜식 소스의 경우 차단할 수 없음
 
-## (EN) Chrome Extension - P*nis Song Blocker
+## (EN) Chrome Extension - Song Blocker
 ### 1. Reason of Development
 #### I hate meme songs(Skibidi, Japanese Anime Song, etc..) keep appears in Youtube Shorts.
 
