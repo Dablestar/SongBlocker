@@ -1,4 +1,4 @@
-# P*nisSongBlocker - In Development 
+# SongBlocker for Youtube Shorts - In Development 
 
 ## (KR) 크롬 확장기능 - P*nis Song Blocker
 ### 1. 기획 의도:
