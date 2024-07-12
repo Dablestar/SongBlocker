@@ -1,12 +1,9 @@
-let skipBtn = document.querySelector("#navigation-button-down");
-let currentTab = getCurrentTab();
+var filePath = "./banList.txt";
+var currentBackground = getCurrentBackgroundURL();
+var skipBtn = getSkipButton();
 
-async function getCurrentTab(){
-    let queryOptions = { active : true };
-    let [tab] = await chrome.tabs.query(queryOptions);
-    return tab;
-}
-
+console.log(currentBackground);
+console.log(skipBtn);
 function isBackgroundInList(filePath, URL){
     var isInsideList = fetch(filePath)
     .then(result => result.text())
@@ -28,25 +25,24 @@ function addBackgroundOnBanList(){
 
 }
 
-function getCurrentBackground(currentTab){
-    let backgroundURL = currentTab.then((response) => {
-        let background = chrome.scripting.executeScript({
-            target : {tabId : response.id},
-            func : getCurrentBackgroundURL,
-        })
-        return background;
-    }).then((res) => {
-        return res[0].result;
-    });
-    return backgroundURL;
-}
 function getCurrentBackgroundURL(){
-    let URL = document.querySelector("#thumbnail-container").getAttribute("href");
+    let URL = document.querySelector("#icon-container > #thumbnail-container").getAttribute("href");
     return URL;
 }
 
+function getSkipButton(){
+    let button = document.querySelector('#navigation-button-down');
+    return button; 
+}
+
+
+isBackgroundInList(filePath, currentBackground).then((result) => {
+    if(result == true){
+        pressSkipBtn(currentTab);
+    }
+});
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    console.log("listen");
     if (request.action === 'clickButton') {
       if (skipBtn) {
         skipBtn.click();
@@ -55,4 +51,4 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         console.log('Webpage button not found');
       }
     }
-});
+  });
