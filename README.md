@@ -1,5 +1,7 @@
 # SongBlocker for Youtube Shorts - In Development 
 
+https://www.youtube.com/watch?v=c4KNd0Yv6d0&ab_channel=FriedFish
+
 ## (KR) 크롬 확장기능 - Song Blocker
 ### 1. 기획 의도:
 ####   듣기만 해도 오글거리고 짜증나는 노래들을 쇼츠에서 스킵하기 위함
