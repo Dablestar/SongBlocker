@@ -59,10 +59,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete') {
         chrome.tabs.sendMessage(tabId, { action: "getURL" }, (response) => {
             if (response) {
+                currentBackground = response;
                 console.log("getURL message sent");
                 console.log(response);
-                isBackgroundInList(response);
+                isBackgroundInList(currentBackground);
             }
         });
     }
   });
+
