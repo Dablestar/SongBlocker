@@ -1,41 +1,68 @@
 var filePath = "./banList.txt";
-var currentBackground = getCurrentBackgroundURL();
+var currentBackground;
 
 async function getCurrentTab(){
-    let queryOptions = { active : true };
+    let queryOptions = { active: true, currentWindow: true };
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab.id;
 }
 
-function isBackgroundInList(filePath, URL){
+function getBanList(){
     var isInsideList = fetch(filePath)
     .then(result => result.text())
-    .then(text => {lines = text.split('\r\n'); return lines})
-    .then(list => {
-        var result = false;
-        for(var i=0; i<list.length; i++){
-            if(list[i] == URL){
-                skip();
-                break;
-            }
-        }
-        return result;
+    .then(text => {
+        var lines = text.split('\r\n'); 
+        return lines
     });
     return isInsideList;
 }
 
-function skip(){
+function isBackgroundInList(URL){
+    var result = false;
+    var banList = getBanList();
+    for(var i=0; i<banList.length; i++){
+        if(banList[i] == URL){
+            sendSkipMsg();
+            result = true;
+        }
+    }
+    if(!result){
+        console.log("link does not included in the document");
+    }
+}
+
+function sendSkipMsg(){
     getCurrentTab().then(response => {
-        console.log(response);
-        chrome.scripting.executeScript({
-            target : {tabId : response},
-            files : ['content.js']
-        }, () => {
-            chrome.tabs.sendMessage(response, {action : "clickButton"});
-            console.log("message sent");
-    });
+        chrome.tabs.sendMessage(response, {action : "skip"});
     });
 }
 
+// chrome.scripting
+//   .registerContentScripts([{
+//     id: "session-script",
+//     js: ["content.js"],
+//     persistAcrossSessions: false,
+//     matches: ["*://youtube.com/*"],
+//     runAt: "document_end",
+//   }])
+//   .then(() => console.log("registration complete"))
+//   .catch((err) => console.warn("unexpected error", err));
 
-isBackgroundInList(filePath, currentBackground);
+// console.log("test");
+
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    chrome.scripting.executeScript({
+        target: {tabId : tab.id},
+        files: ["./js/content.js"]
+    })
+    if (changeInfo.status === 'complete') {
+        chrome.tabs.sendMessage(tabId, { action: "getURL" }, (response) => {
+            if (response) {
+                console.log("getURL message sent");
+                console.log(response);
+                isBackgroundInList(response);
+            }
+        });
+    }
+  });
