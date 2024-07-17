@@ -7,7 +7,7 @@
     "default_popup": "index.html",
     "default_icon": "./src/icon.png"
   },
-  "permissions": ["tabs", "activeTab", "scripting", "nativeMessaging", "notifications"],
+  "permissions": ["tabs", "activeTab", "scripting", "nativeMessaging", "notifications", "storage"],
   "host_permissions": [
     "https://www.youtube.com/*"
   ],

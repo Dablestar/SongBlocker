@@ -8,26 +8,41 @@ async function getCurrentTab(){
 }
 
 function getBanList(){
-    var isInsideList = fetch(filePath)
-    .then(result => result.text())
-    .then(text => {
-        var lines = text.split('\r\n'); 
-        return lines
+    // var isInsideList = fetch(filePath)
+    // .then(result => result.text())
+    // .then(text => {
+    //     var lines = text.split('\r\n'); 
+    //     return lines
+    // });
+    // return isInsideList;
+    var data = chrome.storage.local.get('banList', function(data) {
+        console.log("get data: " + data.banList);
     });
-    return isInsideList;
+    // .then(result => result.text())
+    // .then(text => {
+    //     var lines = text.split('\r\n');
+    //     return lines;
+    // });
+    // return banList;
+    var banListText = JSON.parse(data);
+    console.log(banListText);
+    return banListText;
 }
 
 function isBackgroundInList(URL){
+    console.log(URL);
     var result = false;
     var banList = getBanList();
     for(var i=0; i<banList.length; i++){
+        console.log("banList" + i + " : " + banList[i]);
         if(banList[i] == URL){
+            console.log("Skip()");
             sendSkipMsg();
             result = true;
         }
     }
     if(!result){
-        console.log("link does not included in the document");
+        console.log("no Skip");
     }
 }
 
@@ -68,3 +83,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     }
   });
 
+  chrome.runtime.onInstalled.addListener(() => {
+    chrome.storage.local.set({banList : ""}, function(){
+        console.log("Added Successfully");
+    })
+  })
