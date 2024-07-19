@@ -33,6 +33,7 @@ document.getElementById("addBtn").addEventListener("click", function(){
                 backgroundURL = url;
                 addBackgroundOnBanList(backgroundURL, response);
             });
+            chrome.tabs.sendMessage(response, {action : "skip"});
         })
         
     })

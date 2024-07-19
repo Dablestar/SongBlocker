@@ -6,6 +6,21 @@ async function getCurrentTab(){
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab.id;
 }
+function isBackgroundInList(URL){
+    var result = false;
+    getBanList()
+    .then(banList => {
+        for(var i=0; i<banList.length; i++){
+            if(banList[i] == URL){
+                sendSkipMsg();
+                result = true;
+            }
+        }
+    });
+    if(!result){
+        console.log("No skip");
+    }
+}
 
 function getBanList(){
     // var isInsideList = fetch(filePath)
@@ -15,35 +30,20 @@ function getBanList(){
     //     return lines
     // });
     // return isInsideList;
-    var data = chrome.storage.local.get('banList', function(data) {
-        console.log("get data: " + data.banList);
-    });
+    return new Promise((resolve) => {
+        chrome.storage.local.get('banList', function(data) {
+            console.log("get data: " + data.banList);
+            var banListText = data.banList.split("\r\n");
+            console.log(banListText);
+            resolve(banListText);
+        });
+    })
     // .then(result => result.text())
     // .then(text => {
     //     var lines = text.split('\r\n');
     //     return lines;
     // });
     // return banList;
-    var banListText = JSON.parse(data);
-    console.log(banListText);
-    return banListText;
-}
-
-function isBackgroundInList(URL){
-    console.log(URL);
-    var result = false;
-    var banList = getBanList();
-    for(var i=0; i<banList.length; i++){
-        console.log("banList" + i + " : " + banList[i]);
-        if(banList[i] == URL){
-            console.log("Skip()");
-            sendSkipMsg();
-            result = true;
-        }
-    }
-    if(!result){
-        console.log("no Skip");
-    }
 }
 
 function sendSkipMsg(){
