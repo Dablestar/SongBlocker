@@ -1,11 +1,13 @@
 console.log("Content Script Online");
   
-  var currentURL = getCurrentBackgroundURL();
-  var skipBtn = getSkipButton();
-  
+function updateVariables() {
+  currentURL = getCurrentBackgroundURL();
+  skipBtn = getSkipButton();
+  console.log("Variables updated:", { currentURL, skipBtn });
+}
   
   function getCurrentBackgroundURL(){
-    let URL = document.querySelector("#icon-container > #thumbnail-container").getAttribute("href");
+    let URL = document.querySelector("#pivot-button > pivot-button-view-model > a").getAttribute("href");
     console.log(URL);
     return URL;
   }
@@ -30,4 +32,12 @@ console.log("Content Script Online");
       console.log("getURL received");
       sendResponse(currentURL);
     }
+  });
+  
+  updateVariables();
+
+  document.addEventListener("load", function(){
+    setTimeout(5000);
+    console.log("loaded");
+    updateVariables();
   });

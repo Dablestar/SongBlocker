@@ -23,26 +23,30 @@ function addBackgroundOnBanList(URL, id){
     
 }
 
-document.getElementById("addBtn").addEventListener("click", function(){
+document.getElementById("addBtn").addEventListener("click", function() {
+    console.log("btnClicked");
     getCurrentTab().then(response => {
         chrome.scripting.executeScript({
-            target: {tabId : response},
+            target: { tabId: response },
             files: ["./js/content.js"]
-        }).then(()=>{
-            chrome.tabs.sendMessage(response, {action : "getURL"}, (url) => {
+        }).then(() => {
+            // Use a single message to get the URL and then proceed
+            chrome.tabs.sendMessage(response, { action: "getURL" }, (url) => {
                 backgroundURL = url;
                 addBackgroundOnBanList(backgroundURL, response);
+                // After adding URL to ban list, send the skip action
+                chrome.tabs.sendMessage(response, { action: "skip" });
             });
-            chrome.tabs.sendMessage(response, {action : "skip"});
-        })
-        
-    })
+        });
+    });
     // chrome.runtime.sendMessage({action:"requestURL"}, function(response){
     //     console.log(response);
     //     backgroundURL = response;
     //     console.log(backgroundURL);
     // });
+
 });
+    
 
 
 

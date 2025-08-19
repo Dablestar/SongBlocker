@@ -47,6 +47,7 @@ function getBanList(){
 }
 
 function sendSkipMsg(){
+    console.log("sendSkipMsg()");
     getCurrentTab().then(response => {
         chrome.tabs.sendMessage(response, {action : "skip"});
     });
@@ -66,19 +67,21 @@ function sendSkipMsg(){
 // console.log("test");
 
 
+// Recieve message from popup.js&contents.js
+// 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    chrome.scripting.executeScript({
-        target: {tabId : tab.id},
-        files: ["./js/content.js"]
-    })
-    if (changeInfo.status === 'complete') {
+    if(changeInfo.status === 'complete'){
+        chrome.scripting.executeScript({
+            target: {tabId : tab.id},
+            files: ["./js/content.js"]
+        })
         chrome.tabs.sendMessage(tabId, { action: "getURL" }, (response) => {
-            if (response) {
-                currentBackground = response;
-                console.log("getURL message sent");
-                console.log(response);
-                isBackgroundInList(currentBackground);
-            }
+                if (response) {
+                    currentBackground = response;
+                    console.log("getURL message sent");
+                    console.log(response);
+                    isBackgroundInList(currentBackground);
+                }
         });
     }
   });
